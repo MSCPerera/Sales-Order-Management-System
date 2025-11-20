@@ -17,6 +17,7 @@ const SalesOrderPage = () => {
 
   const [formData, setFormData] = useState({
     clientId: '',
+    clientName: '',
     orderDate: new Date().toISOString().split('T')[0],
     deliveryAddress: '',
     city: '',
@@ -26,6 +27,7 @@ const SalesOrderPage = () => {
 
   const [currentLine, setCurrentLine] = useState({
     itemId: '',
+    itemDisplay: '',
     note: '',
     quantity: 1,
     taxRate: 0,
@@ -49,12 +51,14 @@ const SalesOrderPage = () => {
         const orderData = await dispatch(fetchOrderById(id)).unwrap();
         setFormData({
           clientId: orderData.clientId,
+          clientName: orderData.customerName ?? '',
           orderDate: orderData.orderDate.split('T')[0],
           deliveryAddress: orderData.deliveryAddress,
           city: orderData.city,
           postalCode: orderData.postalCode,
           lines: orderData.lines.map(line => ({
             itemId: line.itemId,
+            itemDisplay: (items.find(i => i.id === line.itemId)?.itemCode || '') + ' - ' + (items.find(i => i.id === line.itemId)?.description || ''),
             note: line.note,
             quantity: line.quantity,
             taxRate: line.taxRate,
@@ -74,13 +78,14 @@ const SalesOrderPage = () => {
   };
 
   const handleClientChange = (e) => {
-    const clientId = parseInt(e.target.value);
-    const selectedClient = clients.find(c => c.id === clientId);
+    const value = e.target.value;
+    const selectedClient = clients.find(c => c.customerName?.toLowerCase().trim() === value?.toLowerCase().trim());
 
     if (selectedClient) {
       setFormData({
         ...formData,
-        clientId: clientId,
+        clientId: selectedClient.id,
+        clientName: selectedClient.customerName,
         deliveryAddress: selectedClient.address,
         city: selectedClient.city,
         postalCode: selectedClient.postalCode,
@@ -89,6 +94,7 @@ const SalesOrderPage = () => {
       setFormData({
         ...formData,
         clientId: '',
+        clientName: value,
         deliveryAddress: '',
         city: '',
         postalCode: '',
@@ -106,9 +112,21 @@ const SalesOrderPage = () => {
     setCurrentLine({ ...currentLine, [name]: value });
   };
 
+  const iDisplay = (item) => `${item.itemCode} - ${item.description}`;
+
   const handleItemSelect = (e) => {
-    const itemId = parseInt(e.target.value);
-    setCurrentLine({ ...currentLine, itemId });
+    const value = e.target.value;
+    const v = value?.toLowerCase().trim();
+    const matched = items.find(i =>
+      i.itemCode?.toLowerCase().trim() === v ||
+      (`${i.itemCode} - ${i.description}`)?.toLowerCase().trim() === v ||
+      String(i.id) === value
+    );
+    if (matched) {
+      setCurrentLine({ ...currentLine, itemId: matched.id, itemDisplay: iDisplay(matched) });
+    } else {
+      setCurrentLine({ ...currentLine, itemId: '', itemDisplay: value });
+    }
   };
 
   const calculateLineAmounts = (itemId, quantity, taxRate) => {
@@ -171,8 +189,15 @@ const SalesOrderPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.clientId) {
-      alert('Please select a customer');
+    // Ensure we have a clientId. If the user typed a matching customerName, resolve it.
+    let clientIdToUse = formData.clientId;
+    if (!clientIdToUse && formData.clientName) {
+      const matched = clients.find(c => c.customerName?.toLowerCase().trim() === formData.clientName?.toLowerCase().trim());
+      if (matched) clientIdToUse = matched.id;
+    }
+
+    if (!clientIdToUse) {
+      alert('Please select an existing customer from the list');
       return;
     }
 
@@ -183,7 +208,7 @@ const SalesOrderPage = () => {
 
     try {
       const orderData = {
-        clientId: parseInt(formData.clientId),
+        clientId: parseInt(clientIdToUse),
         orderDate: new Date(formData.orderDate).toISOString(),
         deliveryAddress: formData.deliveryAddress,
         city: formData.city,
@@ -247,19 +272,19 @@ const SalesOrderPage = () => {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Customer Name *
               </label>
-              <select
-                value={formData.clientId}
+              <input
+                list="clients-list"
+                value={formData.clientName}
                 onChange={handleClientChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                placeholder="Type or choose a customer"
                 required
-              >
-                <option value="">Select Customer</option>
+              />
+              <datalist id="clients-list">
                 {clients.map(client => (
-                  <option key={client.id} value={client.id}>
-                    {client.customerName}
-                  </option>
+                  <option key={client.id} value={client.customerName} />
                 ))}
-              </select>
+              </datalist>
             </div>
 
             <div>
@@ -325,18 +350,18 @@ const SalesOrderPage = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Item
                 </label>
-                <select
-                  value={currentLine.itemId}
+                <input
+                  list="items-list"
+                  value={currentLine.itemDisplay}
                   onChange={handleItemSelect}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">Select Item</option>
+                  placeholder="Type or choose an item"
+                />
+                <datalist id="items-list">
                   {items.map(item => (
-                    <option key={item.id} value={item.id}>
-                      {item.itemCode} - {item.description}
-                    </option>
+                    <option key={item.id} value={`${item.itemCode} - ${item.description}`} />
                   ))}
-                </select>
+                </datalist>
               </div>
 
               <div>
