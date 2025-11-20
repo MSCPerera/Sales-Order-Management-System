@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using SalesOrderSystem.API.Models;
+using SalesOrderSystem.Application.Models;
 using SalesOrderSystem.Application.Interfaces;
 
 namespace SalesOrderSystem.API.Controllers

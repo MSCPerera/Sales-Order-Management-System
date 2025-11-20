@@ -1,0 +1,12 @@
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\bin\Debug\net10.0\SalesOrderSystem.Domain.deps.json
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\bin\Debug\net10.0\SalesOrderSystem.Domain.dll
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\bin\Debug\net10.0\SalesOrderSystem.Domain.pdb
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.AssemblyInfoInputs.cache
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.AssemblyInfo.cs
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.sourcelink.json
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.dll
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\refint\SalesOrderSystem.Domain.dll
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\SalesOrderSystem.Domain.pdb
+D:\Projects\Sales-Order-Management-System\SalesOrderSystem\SalesOrderSystem.Domain\obj\Debug\net10.0\ref\SalesOrderSystem.Domain.dll

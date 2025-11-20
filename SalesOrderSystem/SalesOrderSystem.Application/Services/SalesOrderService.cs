@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SalesOrderSystem.API.Models;
+using SalesOrderSystem.Application.Models;
 using SalesOrderSystem.Application.Interfaces;
 using SalesOrderSystem.Domain.Entities;
 using SalesOrderSystem.Infrastructure.Data;

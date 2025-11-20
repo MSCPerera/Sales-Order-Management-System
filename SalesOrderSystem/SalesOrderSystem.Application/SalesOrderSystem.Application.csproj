@@ -2,6 +2,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SalesOrderSystem.Domain\SalesOrderSystem.Domain.csproj" />
+    <ProjectReference Include="..\SalesOrderSystem.Infrastructure\SalesOrderSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
   </ItemGroup>
 
   <PropertyGroup>

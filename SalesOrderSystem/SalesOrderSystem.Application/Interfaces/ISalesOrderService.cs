@@ -1,4 +1,4 @@
-using SalesOrderSystem.API.Models;
+using SalesOrderSystem.Application.Models;
 
 namespace SalesOrderSystem.Application.Interfaces
 {
