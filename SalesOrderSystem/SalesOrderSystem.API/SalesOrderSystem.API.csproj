@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <!-- Swashbuckle removed temporarily due to runtime compatibility issues. Add a compatible version if you need Swagger UI. -->
   </ItemGroup>
 
   <ItemGroup>

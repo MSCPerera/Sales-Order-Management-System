@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+// API runs from the ASP.NET Core project (see launchSettings.json)
+// update the port to match the backend (http://localhost:5056)
+const API_BASE_URL = 'http://localhost:5056/api';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
